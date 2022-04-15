@@ -3,16 +3,17 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "lint": "eslint ./",
     "test": "jest -i --verbose --coverage --runInBand",
-    "start": "node index.js",
+    "start": "nodemon index.js",
     "dboff": "killall mongod",
     "watch": "nodemon index.js",
     "dbon": "mkdir -p ./db && mongod --dbpath ./db"
   },
   "keywords": [],
-  "author": "Andile JAden Mbele",
+  "author": "Andile Jaden Mbele",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.20.0",
@@ -21,6 +22,7 @@
     "express": "^4.17.3",
     "http-errors": "^2.0.0",
     "mongoose": "^6.2.10",
+    "nodemon": "^2.0.15",
     "superagent": "^7.1.2"
   },
   "devDependencies": {

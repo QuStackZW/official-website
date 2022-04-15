@@ -1,21 +1,24 @@
 "use strict";
 
-import cors from "cors";
-import express from "express";
-import mongoose from "mongoose";
-import { bodyParser } from "body-parser";
+const cors = require("cors");
+const express = require("express");
+const mongoose = require("mongoose");
+// const bodyParser = require("body-parser");
 
 const app = express();
-const port = process.env.PORT || 5000;
 
 // env vars
-const { PORT, MONGO_URI, CORS_ORIGIN } = process.env;
+// const { PORT, MONGO_URI, CORS_ORIGINS } = process.env;
+const MONGO_URI = process.env.MONGO_URI || "mongodb://localhost:27017/blog";
+const port = process.env.PORT || 3000;
+
+app.use(cors());
+app.use(express.json());
 
 mongoose.Promise = global.Promise; //can be just Promise
 // const MONGO_URI = process.env.MONGO_URI;
 mongoose.connect(MONGO_URI, {
   useNewUrlParser: true,
-  useCreateIndex: true,
   useUnifiedTopology: true,
 });
 
@@ -24,9 +27,11 @@ connection.once("open", () => {
   console.log("MongoDB database connection established successfully");
 });
 
-app.use(bodyParser.json(), cors({ origin: CORS_ORIGIN }));
+const blogRouter = require("../routes/blog.route");
 
-app.use(require("../route/auth-router"));
+app.use("/blog", blogRouter);
+
+// app.use(require("../route/auth-router"));
 
 app.all("*", (req, res) => {
   res.status(404).send({
@@ -35,16 +40,15 @@ app.all("*", (req, res) => {
 });
 
 //error middleware
-app.use(require("./error-middleware"));
+// app.use(require("./error-middleware"));
 
-export const start = () => {
-  app.listen(PORT, () => {
-    console.log(`Server started on port ${PORT}`);
-  });
-};
+app.listen(port, () => {
+  console.log(`Server started on port ${port}`);
+});
 
-export const stop = () => {
-  app.close(() => {
-    console.log("Server stopped");
+process.on("SIGTERM", () => {
+  server.close(() => {
+    console.log("Server closed");
+    process.exit(0);
   });
-};
+});
