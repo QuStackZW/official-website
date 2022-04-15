@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Container, AppBar, Typography, Grow, Grid } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 
@@ -10,12 +10,13 @@ import queueStack from "./images/queueStack.jpg";
 import useStyles from "./styles";
 
 const App = () => {
+  const [currentId, setCurrentId] = useState(0); // eslint-disable-line no-unused-vars
   const classes = useStyles();
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getPosts());
-  }, []);
+  }, [currentId, dispatch]);
 
   return (
     <Container maxWidth="lg">
