@@ -1,21 +1,20 @@
 import React, { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
-import { Provider } from "react-redux";
+import ReactDOM from "react-dom";
+import { Provider } from "react-redux"; // eslint-disable-line no-unused-vars
 import { createStore, applyMiddleware, compose } from "redux";
-
+import { createRoot } from "react-dom/client";
 import thunk from "redux-thunk";
-import reducers from "./reducers";
 
+import { reducers } from "./reducers";
 import App from "./App";
 
 const store = createStore(reducers, compose(applyMiddleware(thunk)));
 
-const rootNode = createRoot(document.getElementById("root"));
+const rootNode = document.getElementById("root");
+const root = createRoot(rootNode);
 
-rootNode.render(
+root.render(
   <StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <App />
   </StrictMode>
 );
