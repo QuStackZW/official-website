@@ -93,7 +93,7 @@ const Form = ({ currentId, setCurrentId }) => {
           Submit
         </Button>
         <Button
-          variant="contained"
+          variant="container"
           color="secondary"
           size="small"
           onClick={clear}

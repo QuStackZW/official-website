@@ -1,5 +1,8 @@
+import postsReducer from "./posts";
 import { combineReducers } from "redux"; // eslint-disable-line
 
-import posts from "./posts";
+const allReducers = combineReducers({
+  posts: postsReducer,
+});
 
-export const reducers = combineReducers({ posts });
+export default allReducers;

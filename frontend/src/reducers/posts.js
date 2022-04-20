@@ -1,4 +1,4 @@
-const data = (posts = [], action) => {
+const postsReducer = (posts = [], action) => {
   switch (action.type) {
     case "FETCH_ALL":
       return action.payload;
@@ -15,4 +15,4 @@ const data = (posts = [], action) => {
   }
 };
 
-export default data;
+export default postsReducer;
